@@ -1,0 +1,197 @@
+{
+  "source": "Ontario Building Code (2024), Division B, Subsection 3.7.4.",
+  "note": "Tables give the minimum number of water closets for the stated number of persons of each sex. Lavatories: one in a washroom with one or two water closets or urinals, plus one for each additional two fixtures. Up to two-thirds of required male water closets may be urinals. Barrier-free and universal washroom requirements (Section 3.8.) are additional.",
+  "table_3.7.4.3.A_assembly_general": [
+    {
+      "persons_of_each_sex_up_to": 25,
+      "male_wc": 1,
+      "female_wc": 1
+    },
+    {
+      "persons_of_each_sex_up_to": 50,
+      "male_wc": 1,
+      "female_wc": 2
+    },
+    {
+      "persons_of_each_sex_up_to": 75,
+      "male_wc": 2,
+      "female_wc": 3
+    },
+    {
+      "persons_of_each_sex_up_to": 100,
+      "male_wc": 2,
+      "female_wc": 4
+    },
+    {
+      "persons_of_each_sex_up_to": 125,
+      "male_wc": 3,
+      "female_wc": 5
+    },
+    {
+      "persons_of_each_sex_up_to": 150,
+      "male_wc": 3,
+      "female_wc": 6
+    },
+    {
+      "persons_of_each_sex_up_to": 175,
+      "male_wc": 4,
+      "female_wc": 7
+    },
+    {
+      "persons_of_each_sex_up_to": 200,
+      "male_wc": 4,
+      "female_wc": 8
+    },
+    {
+      "persons_of_each_sex_up_to": 250,
+      "male_wc": 5,
+      "female_wc": 9
+    },
+    {
+      "persons_of_each_sex_up_to": 300,
+      "male_wc": 5,
+      "female_wc": 10
+    },
+    {
+      "persons_of_each_sex_up_to": 350,
+      "male_wc": 6,
+      "female_wc": 11
+    },
+    {
+      "persons_of_each_sex_up_to": 400,
+      "male_wc": 6,
+      "female_wc": 12
+    },
+    {
+      "persons_of_each_sex": "over 400",
+      "male_wc": "7 plus 1 per additional 200 males over 400",
+      "female_wc": "13 plus 1 per additional 100 females over 400"
+    }
+  ],
+  "table_3.7.4.3.D_restaurants_dining": [
+    {
+      "persons_of_each_sex_up_to": 20,
+      "wc_for_each_sex": 1
+    },
+    {
+      "persons_of_each_sex_up_to": 70,
+      "wc_for_each_sex": 2
+    },
+    {
+      "persons_of_each_sex_up_to": 105,
+      "wc_for_each_sex": 3
+    },
+    {
+      "persons_of_each_sex_up_to": 135,
+      "wc_for_each_sex": 4
+    },
+    {
+      "persons_of_each_sex_up_to": 165,
+      "wc_for_each_sex": 5
+    },
+    {
+      "persons_of_each_sex_up_to": 195,
+      "wc_for_each_sex": 6
+    },
+    {
+      "persons_of_each_sex_up_to": 225,
+      "wc_for_each_sex": 7
+    },
+    {
+      "persons_of_each_sex_up_to": 275,
+      "wc_for_each_sex": 8
+    },
+    {
+      "persons_of_each_sex_up_to": 325,
+      "wc_for_each_sex": 9
+    },
+    {
+      "persons_of_each_sex_up_to": 375,
+      "wc_for_each_sex": 10
+    },
+    {
+      "persons_of_each_sex_up_to": 425,
+      "wc_for_each_sex": 11
+    },
+    {
+      "persons_of_each_sex": "over 425",
+      "wc_for_each_sex": "12 plus 1 per additional 50 persons of each sex over 425"
+    }
+  ],
+  "table_3.7.4.3.F_restaurant_employees_over_40_seats": [
+    {
+      "employees_of_each_sex_up_to": 9,
+      "wc_and_lavatories_for_each_sex": 1
+    },
+    {
+      "employees_of_each_sex_up_to": 24,
+      "wc_and_lavatories_for_each_sex": 2
+    },
+    {
+      "employees_of_each_sex_up_to": 49,
+      "wc_and_lavatories_for_each_sex": 3
+    },
+    {
+      "employees_of_each_sex_up_to": 74,
+      "wc_and_lavatories_for_each_sex": 4
+    },
+    {
+      "employees_of_each_sex_up_to": 100,
+      "wc_and_lavatories_for_each_sex": 5
+    },
+    {
+      "employees_of_each_sex": "over 100",
+      "wc_and_lavatories_for_each_sex": "6 plus 1 per additional 30 employees of each sex over 100"
+    }
+  ],
+  "tables_3.7.4.7_business_3.7.4.8_mercantile_employees_3.7.4.9_industrial": [
+    {
+      "persons_of_each_sex_up_to": 9,
+      "wc_for_each_sex": 1
+    },
+    {
+      "persons_of_each_sex_up_to": 24,
+      "wc_for_each_sex": 2
+    },
+    {
+      "persons_of_each_sex_up_to": 49,
+      "wc_for_each_sex": 3
+    },
+    {
+      "persons_of_each_sex_up_to": 74,
+      "wc_for_each_sex": 4
+    },
+    {
+      "persons_of_each_sex_up_to": 100,
+      "wc_for_each_sex": 5
+    },
+    {
+      "persons_of_each_sex": "over 100",
+      "wc_for_each_sex": "6 plus 1 per additional 30 persons of each sex over 100"
+    }
+  ],
+  "group_d_fixture_occupant_load": "For fixture counting in Group D (business and personal services), the occupant load is based on 14 sq m per person (Sentence 3.7.4.2.(1)).",
+  "mercantile_public": "Public fixtures in mercantile occupancies: at least 1 per 300 males and 1 per 150 females; where the mercantile area is not more than 600 sq m, not more than 1 per sex need be provided.",
+  "table_3.7.4.3.I_child_care": [
+    {
+      "age": "under 2",
+      "max_children_per_wc_and_lavatory": 10,
+      "basis": "without regard to sex"
+    },
+    {
+      "age": "2 to 5",
+      "max_children_per_wc_and_lavatory": 10,
+      "basis": "without regard to sex"
+    },
+    {
+      "age": "6 to 9",
+      "max_children_per_wc_and_lavatory": 15,
+      "basis": "for males and for females separately"
+    },
+    {
+      "age": "over 9",
+      "max_children_per_wc_and_lavatory": "30 for males, 26 for females",
+      "basis": "per sex"
+    }
+  ]
+}
