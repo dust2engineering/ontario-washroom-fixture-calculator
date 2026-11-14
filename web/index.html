@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario Washroom Fixture Calculator - by Dust 2 Engineering Inc.</title>
+<meta name="description" content="Free Ontario Building Code washroom fixture calculator (Subsection 3.7.4.) by Dust 2 Engineering Inc., Mississauga - GTA permit drawings, flat fee $3,500 to $5,000, Ontario P.Eng.">
+<style>body{background:#121417;color:#e8eaf0;font-family:system-ui,sans-serif;margin:0;padding:20px;line-height:1.55}.card{max-width:760px;margin:0 auto;background:#1b1e24;border:1px solid #2c313a;border-radius:14px;padding:22px}h1{font-size:22px;margin:0 0 6px}.sub{color:#aab2c0;font-size:14px}label{display:block;margin:14px 0 4px;font-size:14px}input,select{width:100%;padding:10px;border-radius:8px;border:1px solid #3a404c;background:#121417;color:#fff;box-sizing:border-box}.chk{display:flex;gap:8px;align-items:center;margin-top:10px}.chk input{width:auto}button{margin-top:18px;width:100%;padding:12px;border:0;border-radius:10px;background:#f2b33d;color:#111;font-weight:700;font-size:16px}pre{white-space:pre-wrap;background:#0d0f12;border:1px solid #2c313a;border-radius:10px;padding:14px;font-size:13px}.foot{font-size:12px;color:#8b93a3;margin-top:14px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #2c313a;padding:5px 8px;text-align:left}</style></head>
+<body><div class="card">
+<h1>Ontario Washroom Fixture Calculator</h1>
+<p class="sub">Free tool by <b>Dust 2 Engineering Inc.</b>, Mississauga. Counts the minimum water closets required by Ontario Building Code Subsection 3.7.4. Pick your occupancy, enter the people, and get the count.</p>
+<label>Occupancy
+<select id="mode" onchange="showMode()">
+<option value="restaurant">Restaurant / dining room / cafeteria</option>
+<option value="assembly">Assembly, general (halls, recreation, gyms)</option>
+<option value="business">Business / personal services / offices / clinics (Group D)</option>
+<option value="mercantile">Mercantile / retail (Group E)</option>
+<option value="industrial">Industrial (Group F)</option>
+<option value="childcare">Child care facility (daycare)</option>
+</select></label>
+<div class="blk" id="b-restaurant">
+<label>Seats <input id="r_seats" type="number" value="60"></label>
+<label>Patron occupant load (blank = same as seats) <input id="r_patrons" type="number" value="180"></label>
+<label>Male employees at one time <input id="r_me" type="number" value="6"></label>
+<label>Female employees at one time <input id="r_fe" type="number" value="4"></label>
+</div>
+<div class="blk" id="b-assembly" style="display:none">
+<label>Males (persons) <input id="a_m" type="number" value="90"></label>
+<label>Females (persons) <input id="a_f" type="number" value="90"></label>
+</div>
+<div class="blk" id="b-business" style="display:none">
+<label>Floor area (sq m) <input id="d_area" type="number" value="1400"></label>
+</div>
+<div class="blk" id="b-mercantile" style="display:none">
+<label>Male employees <input id="e_me" type="number" value="8"></label>
+<label>Female employees <input id="e_fe" type="number" value="12"></label>
+<label>Public males (occupant load) <input id="e_pm" type="number" value="300"></label>
+<label>Public females (occupant load) <input id="e_pf" type="number" value="300"></label>
+<label>Mercantile floor area (sq m) <input id="e_area" type="number" value="800"></label>
+</div>
+<div class="blk" id="b-industrial" style="display:none">
+<label>Males (persons) <input id="f_m" type="number" value="30"></label>
+<label>Females (persons) <input id="f_f" type="number" value="10"></label>
+</div>
+<div class="blk" id="b-childcare" style="display:none">
+<label>Children under 2 <input id="c_u2" type="number" value="10"></label>
+<label>Children age 2 to 5 <input id="c_a25" type="number" value="30"></label>
+<label>Boys age 6 to 9 <input id="c_m69" type="number" value="15"></label>
+<label>Girls age 6 to 9 <input id="c_f69" type="number" value="15"></label>
+<label>Boys over 9 <input id="c_m9" type="number" value="0"></label>
+<label>Girls over 9 <input id="c_f9" type="number" value="0"></label>
+</div>
+<button onclick="calc()">Calculate fixtures</button>
+<pre id="out">Your result will appear here.</pre>
+<p class="foot">Preliminary information only. Barrier-free and universal washroom requirements (OBC Section 3.8.) apply in addition to these counts. Verify with your designer and the local building department. First step: work out the occupant load with the Ontario Occupant Load Calculator, also by Dust 2 Engineering Inc. Tool by Dust 2 Engineering Inc.</p>
+</div><script>
+
+var TABLE_A = [[25,1,1],[50,1,2],[75,2,3],[100,2,4],[125,3,5],[150,3,6],[175,4,7],[200,4,8],[250,5,9],[300,5,10],[350,6,11],[400,6,12]];
+var TABLE_D = [[20,1],[70,2],[105,3],[135,4],[165,5],[195,6],[225,7],[275,8],[325,9],[375,10],[425,11]];
+var STEPPED = [[9,1],[24,2],[49,3],[74,4],[100,5]];
+function tableAone(n, sex){ if (n<=0) return 0; for (var i=0;i<TABLE_A.length;i++){ if (n<=TABLE_A[i][0]) return sex==='m'?TABLE_A[i][1]:TABLE_A[i][2]; } return sex==='m' ? 7+Math.ceil((n-400)/200) : 13+Math.ceil((n-400)/100); }
+function tableD(n){ if (n<=0) return 0; for (var i=0;i<TABLE_D.length;i++){ if (n<=TABLE_D[i][0]) return TABLE_D[i][1]; } return 12+Math.ceil((n-425)/50); }
+function stepped(n){ if (n<=0) return 0; for (var i=0;i<STEPPED.length;i++){ if (n<=STEPPED[i][0]) return STEPPED[i][1]; } return 6+Math.ceil((n-100)/30); }
+function lavs(n){ if (n<=0) return 0; return 1+Math.ceil(Math.max(0,n-2)/2); }
+function urinals(wc){ return Math.floor(wc*2/3); }
+
+function g(id){ return parseFloat(document.getElementById(id).value || '0'); }
+function showMode(){
+  var m = document.getElementById('mode').value;
+  var blks = document.querySelectorAll('.blk');
+  for (var i = 0; i < blks.length; i++) blks[i].style.display = 'none';
+  document.getElementById('b-' + m).style.display = 'block';
+}
+function calc(){
+  var m = document.getElementById('mode').value, L = [];
+  if (m === 'restaurant'){
+    var seats = g('r_seats'), patrons = g('r_patrons') || seats, me = g('r_me'), fe = g('r_fe');
+    if (seats > 40){
+      var per = Math.ceil(patrons / 2), wc = tableD(per);
+      L.push('Patrons: occupant load ' + patrons + ', taken as ' + per + ' of each sex -> Table 3.7.4.3.D: ' + wc + ' water closets for each sex');
+      L.push('Patron lavatories (minimum, per sex): ' + lavs(wc));
+      L.push('Up to ' + urinals(wc) + ' of the male patron water closets may be urinals.');
+      var em = stepped(me), ef = stepped(fe);
+      L.push('More than 40 seats, so employees need separate facilities (Table 3.7.4.3.F): ' + em + ' for male employees, ' + ef + ' for female employees (water closets and lavatories)');
+      L.push('TOTAL WATER CLOSETS: ' + (2 * wc + em + ef));
+    } else {
+      var ml = Math.ceil(seats / 2) + me, fl = Math.ceil(seats / 2) + fe;
+      var wm = tableD(ml), wf = tableD(fl);
+      L.push('40 seats or fewer, so employees share the patron facilities. Count basis: ' + ml + ' males, ' + fl + ' females');
+      L.push('Table 3.7.4.3.D: ' + wm + ' water closets for males, ' + wf + ' for females');
+      L.push('TOTAL WATER CLOSETS: ' + (wm + wf));
+    }
+  } else if (m === 'assembly'){
+    var am = g('a_m'), af = g('a_f'), wm2 = tableAone(am, 'm'), wf2 = tableAone(af, 'f');
+    L.push('Table 3.7.4.3.A: ' + wm2 + ' water closets for males, ' + wf2 + ' for females');
+    L.push('Lavatories (minimum): ' + lavs(wm2) + ' male, ' + lavs(wf2) + ' female. Up to ' + urinals(wm2) + ' of the male water closets may be urinals.');
+    L.push('TOTAL WATER CLOSETS: ' + (wm2 + wf2));
+  } else if (m === 'business'){
+    var area = g('d_area'), total = Math.ceil(area / 14), per2 = Math.ceil(total / 2), wc2 = stepped(per2);
+    L.push('Group D fixture counting uses 14 sq m per person: ' + area + ' sq m -> ' + total + ' persons, taken as ' + per2 + ' of each sex');
+    L.push('Table 3.7.4.7.: ' + wc2 + ' water closets for each sex');
+    if (total <= 10) L.push('Occupant load is not more than 10, so one water closet may serve both sexes.');
+    L.push('TOTAL WATER CLOSETS: ' + (2 * wc2));
+  } else if (m === 'mercantile'){
+    var em2 = stepped(g('e_me')), ef2 = stepped(g('e_fe'));
+    var pm = g('e_pm') > 0 ? Math.ceil(g('e_pm') / 300) : 0;
+    var pf = g('e_pf') > 0 ? Math.ceil(g('e_pf') / 150) : 0;
+    var ea = g('e_area');
+    if (ea > 0 && ea <= 600){ pm = Math.min(pm, 1); pf = Math.min(pf, 1); L.push('Mercantile area is not more than 600 sq m, so not more than one public water closet per sex is required.'); }
+    L.push('Employees (Table 3.7.4.8.): ' + em2 + ' water closets for males, ' + ef2 + ' for females');
+    L.push('Public (1 per 300 males, 1 per 150 females): ' + pm + ' for males, ' + pf + ' for females');
+    L.push('Employee water closets may be counted toward the public requirement when they are accessible to the public.');
+    L.push('TOTAL WATER CLOSETS (if counted separately): ' + (em2 + ef2 + pm + pf));
+  } else if (m === 'industrial'){
+    var fm = g('f_m'), ff = g('f_f'), wm3 = stepped(fm), wf3 = stepped(ff);
+    L.push('Table 3.7.4.9.: ' + wm3 + ' water closets and ' + wm3 + ' lavatories for males, ' + wf3 + ' water closets and ' + wf3 + ' lavatories for females');
+    if (fm + ff <= 10) L.push('Occupant load is not more than 10, so one water closet may serve both sexes.');
+    L.push('TOTAL WATER CLOSETS: ' + (wm3 + wf3));
+  } else if (m === 'childcare'){
+    var u2 = g('c_u2') > 0 ? Math.ceil(g('c_u2') / 10) : 0;
+    var a25 = g('c_a25') > 0 ? Math.ceil(g('c_a25') / 10) : 0;
+    var m69 = g('c_m69') > 0 ? Math.ceil(g('c_m69') / 15) : 0;
+    var f69 = g('c_f69') > 0 ? Math.ceil(g('c_f69') / 15) : 0;
+    var m9 = g('c_m9') > 0 ? Math.ceil(g('c_m9') / 30) : 0;
+    var f9 = g('c_f9') > 0 ? Math.ceil(g('c_f9') / 26) : 0;
+    L.push('Table 3.7.4.3.I (water closets and lavatories, same count):');
+    L.push('Under 2 years: ' + u2 + ' | Age 2 to 5: ' + a25 + ' | Age 6 to 9: ' + m69 + ' male + ' + f69 + ' female | Over 9: ' + m9 + ' male + ' + f9 + ' female');
+    L.push('TOTAL WATER CLOSETS: ' + (u2 + a25 + m69 + f69 + m9 + f9) + ' (staff fixtures are counted separately)');
+  }
+  document.getElementById('out').textContent = L.join('\n');
+}
+</script></body></html>
